@@ -1,0 +1,102 @@
+```{r}
+library(reshape2)
+library(ggplot2)
+
+cat("\014")  
+
+genseq <- function(base, r) {
+    seq(-r, r, by=base)
+}
+
+f <- function(x, r=1) {
+    sqrt((r-x)*(r+x))
+}
+
+cM <- function(base=.1, r=1) {
+    x <- genseq(base, r)
+    y <- f(x, r)
+    
+    matrix(c(x, y), ncol=2, dimnames=list(NULL, c("x", "y")))
+}
+
+cMArea <- function(cM) {
+    base <- cM[2,1] - cM[1,1]
+    sum(cM[, "y"] * base)
+}
+
+cMPlot <- function(cM) {
+    plot(cM,
+         type="l",
+         frame=F,
+         main=paste("2 x area:", 2*cMArea(cM)),
+         xlab=paste("x | bases=", cM[2,1] - cM[1,1]))
+    abline(h=0)
+    apply(cM, 1, function(coord) {
+        x <- coord[1]
+        y <- coord[2]
+        segments(x, y, y1 = 0)
+    })
+    
+}
+
+### Data
+r <- 1
+by <- .0001
+x <- genseq(by, r)
+y <- y0 <- f(x, r)
+t1 <- (r-x)
+t2 <- (r+x)
+y1 <- t1 * t2
+y2 <- sqrt(y0)
+y3 <-sqrt(y2)
+y4 <- sqrt(y3)
+y5 <- sqrt(y4)
+yn <- y0^(1/1000)
+diff <- y0 - y1
+
+df <- data.frame(x, t1, t2, y0, y1, y2, y3, y4, y5, yn, diff)
+# par(mfrow=c(1,1))
+# plot(df)
+# print(df)
+df <- melt(df, id="x")
+
+g1 <- ggplot(df, aes(x, value, color=variable)) + geom_line()
+#     scale_x_continuous(limits = c(-r, r)) +
+#     scale_y_continuous(limits = c(-r, r))
+# plot(g1)
+
+diff1 <- y0 - y1
+diff2 <- y0 / y1
+diff3 <- y1 - y0
+diff4 <- y1 / y0
+diff <- data.frame(x, diff1, diff2, diff3, diff4)
+diff <- melt(diff, id="x")
+
+g2 <- ggplot(diff, aes(x, value, color=variable)) + geom_line()
+#     scale_x_continuous(limits = c(-r, r)) +
+#     scale_y_continuous(limits = c(-r, r))
+# plot(g2)
+```
+
+```{r area}
+speed <- 1
+bases <- c(seq(1, 99, by=1*speed),
+          seq(100, 999, by=10*speed),
+          seq(1000, 9999, by=100*speed))
+# bases <- 1:100
+l <- sapply(1/bases, cM, r=1)
+names(l) <- bases
+x <- data.frame(bases, area=unlist(lapply(l, cMArea)))
+rownames(x) <- NULL
+
+lapply(l, function(x) {
+    cMPlot(x)
+    Sys.sleep(1/2)
+})
+# bases <- seq(1, 10^3, by=10)
+# sapply(bases, function(n) {
+#     x <- 2 * cMArea(cM(n))
+#     print(x)
+#     x
+# })
+```
