@@ -23,4 +23,4 @@ df <- data.frame(x, y)
 ggplot(df, aes(x, y)) +
     geom_line() +
     geom_point(data = data.frame(x = 0, y = 6), shape="o", size=3) +
-    ggtitle("L'Hopital's Rule")
+    ggtitle("L'Hopital's Rules")
