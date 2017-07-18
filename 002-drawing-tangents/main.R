@@ -26,7 +26,7 @@ xRange <- range(xDomain)
 # yRange <- yDomain
 
 par(mfrow=c(1,1))
-curve(f, xlim=xRange, n=201, main="Derivatives: x^3 + x^2 - x")
+curve(f, xlim=xRange, n=201, main="Tangents: x^3 + x^2 - x")
 abline(h = 0, v = 0, col = "gray30")
 
 # png("derivatives.png", width=960, height=590)

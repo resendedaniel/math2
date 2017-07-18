@@ -7,8 +7,8 @@ P_matrix <- matrix(c(
     -3, 4
 ), 2)
 T_matrix <- matrix(c(
-    2, 1,
-    -1, 2
+    1, -1,
+    0, 1
 ), 2)
 
 T_points <- T_matrix %*% P_matrix

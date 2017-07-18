@@ -6,15 +6,17 @@ caosAlg <- function(x) {
     r * x * (1 - x)
 }
 
+par(mfrow=c(1,1))
+
 caos <- function(r) {
         r <<- r
         x <- numeric(100)
         x[1] <- 0.1
-        
+
         for(i in 2:length(x)) {
                 x[i] <- caosAlg(x[i-1])
         }
-        
+
         x
 }
 

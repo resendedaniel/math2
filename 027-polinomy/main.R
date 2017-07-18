@@ -20,4 +20,7 @@ ggplot(df, aes(x, value,
                group = factor(variable),
                colour = -variable)) +
     geom_line() +
-    theme(legend.position = "none")
+    theme(legend.position = "none") +
+    theme_minimal() +
+    ylab('f(x)') +
+    theme(legend.position = 'none')

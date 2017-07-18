@@ -1,4 +1,5 @@
 library(reshape2)
+library(ggplot2)
 
 #The far side of a normal
 n <- 1:32
@@ -6,7 +7,7 @@ n <- 2^(0:8)
 sapply(n, function(n) {
     seq <- seq(-n,n,by=.1)
     normal <- dnorm(seq)
-    
+
     plot(seq, normal,
          type="l",
          frame=FALSE,

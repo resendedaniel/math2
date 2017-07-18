@@ -3,7 +3,7 @@ library(ggplot2)
 # The limit of sin(x) / x @ x = 0 is undefined because 0/0 is undefined
 # But it is there accordingly to this Hopital guy
 
-x <- seq(-2*pi, 200*pi, pi/1000)
+x <- seq(-2*pi, 2*pi, pi/10)
 f1 <- list()
 f1 <- c(f1, function(x) 2 * sin(x) - sin(2*x))
 f1 <- c(f1, function(x) 4 * x^2 - 5*x)
@@ -24,7 +24,7 @@ f2 <- c(f2, function(x) x)
 f2 <- c(f2, function(x) 1)
 f2 <- c(f2, function(x) x)
 
-i <- 8
+i <- 1
 y <- f1[[i]](x) / f2[[i]](x)
 
 df <- data.frame(x, y)

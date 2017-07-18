@@ -1,3 +1,4 @@
+
 animateLog <- function(n) {
     sapply(n, function(n) {
         print(n)
